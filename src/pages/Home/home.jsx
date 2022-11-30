@@ -75,6 +75,15 @@ const Home = () => {
     }, [])
     return ( 
     <div >
+        {!token &&
+             <div className='center-div' style={{backgroundColor:'var(--green)', color:'white'}}>
+                <div style = {{textAlign: 'center'}}>
+                    <h1 className = 'none' style = {{ marginTop: '10px'}}> conduit</h1>
+                    <p style = {{color:'white', marginBottom: '10px'}} > A place to share your knowledge
+                    </p>
+               </div>
+             
+             </div>}
         <div className='flex-2'>
             <button className={`button ${clicked==1 && !tag ? "button1" : ""}`} onClick = {() => handleButtonClick(1)}> Global Feed </button>
             {token && <button className={`button ${clicked==2 && !tag ? "button1" : ""}`} onClick = {() => handleButtonClick(2)}> Your Feed </button> }
