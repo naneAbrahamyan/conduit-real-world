@@ -1,0 +1,127 @@
+:root {
+    --green: #5cb85c;
+    --hover-green: rgb(7, 145, 7);
+    --grey: grey; 
+}
+ p{
+    color: var(--grey)
+ }
+
+input[type="text"],input[type="password"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=text]:focus, input[type="password"]:focus {
+    border: 3px solid var(--green);
+}
+
+input[type=submit] {
+    width: 100px;
+    background-color: var(--green);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+
+input[type=submit]:hover {
+    background-color: var(--hover-green);
+}
+
+.general-form {
+    border-radius: 5px;
+    padding: 0px 150px;
+}
+
+.center-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box {
+    border-radius: 5px;
+    padding: 0px 20px 0px 0px;
+}
+
+.flex-1 {
+    display: flex;
+    justify-content: space-between;
+}
+.flex-2 {
+    display: flex;
+    justify-content: flex-start;
+}
+.flex-3 {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.flex-4 {
+  display: flex;
+  justify-content: flex-end;
+
+}
+.grow {
+    flex-grow: 1;
+}
+
+.button {
+    background-color:white ; /* Green */
+    border: none;
+    color: grey;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
+  .button1 {
+    background-color: white; 
+    color: black; 
+    border-bottom: 2px solid var(--green);
+    pointer-events: none;
+
+  }
+  
+  .button1:hover {
+    background-color: #88cf8a;
+    color: white;
+  }
+
+  .button-3{
+    display: none;
+  }
+
+  .round-image img{
+    border-radius: 50%;
+  }
+
+  .none{
+    margin:0;
+    padding: 0;
+  }
+
+  .hide{
+    display: none;
+  }
+.center {
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.border {
+  border: 1px solid var(--grey)
+}

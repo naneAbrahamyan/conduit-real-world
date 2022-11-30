@@ -1,0 +1,14 @@
+.comment-box{
+    border: 1px solid var(--grey);
+    background-color: white;
+    text-align: center;
+    min-width: 200px;
+}
+
+.comment-box-bottom{
+    background-color: rgb(231, 216, 216);
+}
+
+.comment-button {
+    margin-left: 20px;
+}

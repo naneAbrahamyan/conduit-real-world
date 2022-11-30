@@ -1,0 +1,9 @@
+.settings-button {
+    color:red;
+    background-color: transparent;
+    text-align: center;
+    border:1px solid red;
+    margin:3px;
+    padding: 5px;
+    cursor: pointer;
+}

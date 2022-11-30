@@ -1,0 +1,18 @@
+.text-elements-style > *{
+    text-decoration: none;
+}
+
+.text-elements-style h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.text-elements-style p {
+    color: var(--green)
+}
+
+.text-elements-style {
+    text-align: center;
+}
+
+

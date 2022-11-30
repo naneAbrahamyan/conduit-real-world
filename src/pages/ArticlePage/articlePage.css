@@ -1,0 +1,53 @@
+.article-title{
+    color: white;
+}
+
+.article-page > * {
+    margin: 40px;
+    font-size: large;
+    line-height: 1.5;
+
+}
+
+.article-page{
+    /* padding: 10px 30px; */
+    background-color: rgb(41, 38, 38);
+
+}
+
+.article-page-avatar{
+    font-size: small;
+    padding: 0px 4px;
+}
+
+.comments{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.comments-b, .comment-box{
+    width: 400px;
+}
+
+.margin{
+    margin: 30px;
+
+}
+
+.form-box{
+    border: 1px solid var(--grey);
+    width: 200px;
+}
+
+.button-art {
+    text-decoration: none;
+    color:white;
+    background-color: transparent;
+    font-size:small;
+    font-family:'Times New Roman', Times, serif;
+    text-align: center;
+    border:1px solid white;
+    margin:3px;
+    padding: 5px;
+}

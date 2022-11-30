@@ -1,0 +1,28 @@
+.container {
+    padding: 20px 0px 0px 20px;
+    max-width: 500px;
+    border-top: 1px solid var(--grey);
+
+}
+
+.favorite-button{
+    border: 1px solid var(--green);
+    background-color:white ; /* Green */
+    text-align: center;
+    width: 60px;
+    cursor: pointer;
+}
+.favorite-button:hover{
+    background-color:var(--green) ; 
+    color:white;
+}
+  
+
+.favorite-button-clicked{
+    background-color:var(--green) ; 
+    color:white;
+}
+
+.small-font{
+    font-size: small;
+}

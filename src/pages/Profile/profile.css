@@ -1,0 +1,24 @@
+.profile-top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    background-color: antiquewhite;
+    width: 100%;
+    text-align: center;
+}
+
+.profile-top-button{
+    align-self: flex-end;
+}
+
+.profile-button{
+    background-color:grey ; /* Green */
+    border: 1px solid rgb(214, 207, 207);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+
+}
