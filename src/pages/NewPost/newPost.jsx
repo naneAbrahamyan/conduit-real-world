@@ -23,7 +23,7 @@ const NewPost = (props) => {
                navigate(`/article/${data.data.article.slug}`)
             }
             else{
-                createArticle({...values, tagList: [(values.tagList).split(" ")]});
+                createArticle({...values, tagList: (values.tagList).split(" ")});
                 setValues({})
             }
            

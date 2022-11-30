@@ -13,7 +13,8 @@ const Profile = (props) => {
     const [articles, setArticles] = useState([])
     let token = useContext(Context);
     const [user, setUser] = useState([])
-    const [following, setFollowing] = useState('')
+    const [following, setFollowing] = useState('');
+    const [button , setButton] = useState(1);
     const username = props.username ? props.username : jwt_decode(token.token).username;
     if(token.token){
         token = jwt_decode(token.token).username
@@ -35,6 +36,7 @@ const Profile = (props) => {
 
     const [clicked, setClciked] = useState(true);
     function handleButtonClick(value){
+        setButton(value);
        if(value === 1 ){
             setClciked(true)
             a(username);
@@ -54,7 +56,7 @@ const Profile = (props) => {
         else{
             await  favouriteArticle(value)
         }
-        a(username);
+        button === 1 ? a(username) : b(username);
      
     }
 
