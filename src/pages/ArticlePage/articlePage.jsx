@@ -7,7 +7,6 @@ import { Chip } from "@mui/material";
 import { getComments, removeComment, removeArticle } from "../../api/index";
 import Comments from "../../components/Comments/comments";
 import { Context } from "../../context/context";
-import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 const ArticlePage = () => {
@@ -16,8 +15,7 @@ const ArticlePage = () => {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
 
-  const { token } = useContext(Context);
-  const val = token ? jwt_decode(token).username : "";
+  const { userName } = useContext(Context);
 
   const { slug } = useParams();
   const a = async () => {
@@ -79,7 +77,7 @@ const ArticlePage = () => {
               </Link>
               <p className="none"> {date1} </p>
             </div>
-            {val === article?.author?.username && (
+            {userName === article?.author?.username && (
               <button
                 className="button-art remove"
                 onClick={handleArticleRemoval}
@@ -88,7 +86,7 @@ const ArticlePage = () => {
                 Remove Article{" "}
               </button>
             )}
-            {val === article?.author?.username && (
+            {userName === article?.author?.username && (
               <Link to={`/new-post/${slug}`} className="button-art remove">
                 {" "}
                 Edit Article{" "}
@@ -106,7 +104,7 @@ const ArticlePage = () => {
       <div className="comments">
         <div className="comments-b">
           <div className="comments margin border">
-            <p className={`${token && "hide"}`}>
+            <p className={`${userName && "hide"}`}>
               <Link
                 to={`/sign-in`}
                 style={{ textDecoration: "none", color: "var(--green" }}
@@ -124,7 +122,10 @@ const ArticlePage = () => {
               </Link>{" "}
               for writing a comment
             </p>
-            <form onSubmit={handleFormSubmit} className={`${!token && "hide"}`}>
+            <form
+              onSubmit={handleFormSubmit}
+              className={`${!userName && "hide"}`}
+            >
               <input
                 type="text"
                 name="comment"
@@ -147,7 +148,7 @@ const ArticlePage = () => {
             <div className="comments margin" key={index}>
               <Comments
                 value={value}
-                username={val}
+                username={userName}
                 removeComment={handleButtonRemoval}
               />
             </div>

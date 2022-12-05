@@ -9,7 +9,7 @@ const Articles = (props) => {
       {articles.map((val, key) => (
         <Article value={val} favouriteClick={favouriteClick} key={key} />
       ))}
-      {articles.length == 0 && "There are no articles yet..."}
+      {articles.length === 0 && "There are no articles yet..."}
     </div>
   );
 };

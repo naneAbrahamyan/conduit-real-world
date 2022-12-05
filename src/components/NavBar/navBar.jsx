@@ -2,11 +2,9 @@ import React, { useContext } from "react";
 import { Context } from "../../context/context";
 import { Link } from "react-router-dom";
 import "./navBar.css";
-import jwt_decode from "jwt-decode";
 
 const NavBar = () => {
-  const { token } = useContext(Context);
-  const value = token ? jwt_decode(token).username : "";
+  const { token, userName } = useContext(Context);
 
   return (
     <nav className="navigation">
@@ -29,7 +27,7 @@ const NavBar = () => {
             </li>
 
             <li>
-              <Link to="/profile"> {value} </Link>
+              <Link to="/profile"> {userName} </Link>
             </li>
           </ul>
         </div>

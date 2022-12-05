@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import FavoriteBorderSharpIcon from "@mui/icons-material/FavoriteBorderSharp";
 import "./article.css";
 import Chip from "@mui/material/Chip";
@@ -11,7 +11,10 @@ const Article = ({ value, favouriteClick }) => {
   const { token } = useContext(Context);
   const article = value;
   const clicked = article.favorited;
-  let date = DateFormatter(article.createdAt);
+  const date = useMemo(
+    () => DateFormatter(article.createdAt),
+    [article.createdAt]
+  );
   return (
     <div className="container">
       <div className="flex-1">

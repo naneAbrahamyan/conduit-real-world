@@ -5,7 +5,7 @@ import { PropTypes } from "prop-types";
 import { DateFormatter } from "../../utils/dataFormatter";
 const Comments = ({ value, username, removeComment }) => {
   const token = username;
-  const get = token == value.author.username ? true : false;
+  const get = token === value.author.username ? true : false;
   let date = DateFormatter(value.createdAt);
   return (
     <div className="comment-box">

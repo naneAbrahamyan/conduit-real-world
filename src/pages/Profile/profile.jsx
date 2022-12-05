@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 import Articles from "../../components/Articles/articles";
 import { useEffect } from "react";
 import { Context } from "../../context/context";
-import jwt_decode from "jwt-decode";
 import {
   getFavoritedArticles,
   followUser,
@@ -21,16 +20,11 @@ import "./profile.css";
 
 const Profile = (props) => {
   const [articles, setArticles] = useState([]);
-  let token = useContext(Context);
+  let { userName } = useContext(Context);
   const [user, setUser] = useState([]);
   const [following, setFollowing] = useState("");
   const [button, setButton] = useState(1);
-  const username = props.username
-    ? props.username
-    : jwt_decode(token.token).username;
-  if (token.token) {
-    token = jwt_decode(token.token).username;
-  }
+  const username = props.username ? props.username : userName;
   const a = async (value) => {
     const articles = await getUserArticles(value);
     setArticles(articles.data.articles);
@@ -44,7 +38,7 @@ const Profile = (props) => {
     setArticles(articles.data.articles);
   };
 
-  const [clicked, setClciked] = useState(true);
+  const [clicked, setClciked] = useState(1);
   function handleButtonClick(value) {
     setButton(value);
     if (value === 1) {
@@ -89,7 +83,7 @@ const Profile = (props) => {
           <h4 className="none"> {username} </h4>
           <p className="none"> {user?.bio}</p>
           <div className="profile-top-button">
-            {props?.username && props?.username != token ? (
+            {props?.username && props?.username != userName ? (
               <button className="profile-button" onClick={handleFollow}>
                 {" "}
                 {!following ? "Follow" : "Unfollow"} {username}
