@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import Article from './Article/article';
-import { useEffect } from 'react';
+import React from "react";
+import PropTypes from "prop-types";
+import Article from "./Article/article";
 const Articles = (props) => {
-    const {articles, favouriteClick} = props
-  
-    useEffect(()=>{
+  const { articles, favouriteClick } = props;
 
-    }, [articles, props])
-    return ( 
-        <div>
-          
-            {articles.map((val, key )=> (
-                <Article value = {val}  favouriteClick = {favouriteClick} key = {key}/>
-                ))}
-            {articles.length == 0 && 'There are no articles yet...'}
-        </div>
-        
-            );
-}
- 
+  return (
+    <div>
+      {articles.map((val, key) => (
+        <Article value={val} favouriteClick={favouriteClick} key={key} />
+      ))}
+      {articles.length == 0 && "There are no articles yet..."}
+    </div>
+  );
+};
+
+Articles.propTypes = {
+  articles: PropTypes.array.isRequired,
+  favouriteClick: PropTypes.function,
+};
+
 export default Articles;

@@ -1,24 +1,21 @@
-import React, {createContext, useEffect, useState} from "react";
-import {getToken} from "../utils/localStorage"
-import { getUser } from "../api";
+/* eslint-disable react/prop-types */
+import React, { createContext, useState } from "react";
+import { getToken } from "../utils/localStorage";
 export const Context = createContext({
-     token: getToken(),
-     setToken: () => "",
-     user: {},
-     getUser: () => "",
-})
+  token: getToken(),
+  setToken: () => "",
+  user: {},
+  getUser: () => "",
+});
 
 const ContextProvider = (props) => {
-    const [token, setToken] = useState(getToken());
-   
-    useEffect(()=>{
-    },[token])
-    return (
-        <Context.Provider value={{token, setToken}}>
-            {props.children}
-        </Context.Provider>
-    );
+  const [token, setToken] = useState(getToken());
 
-}
+  return (
+    <Context.Provider value={{ token, setToken }}>
+      {props.children}
+    </Context.Provider>
+  );
+};
 
 export default ContextProvider;
