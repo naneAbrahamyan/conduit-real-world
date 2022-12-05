@@ -5,15 +5,13 @@ import Chip from "@mui/material/Chip";
 import { Context } from "../../../context/context";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { DateFormatter } from "../../../utils/dataFormatter";
 
 const Article = ({ value, favouriteClick }) => {
   const { token } = useContext(Context);
   const article = value;
   const clicked = article.favorited;
-
-  let date1 = new Date(article.createdAt) + " ";
-  date1 = date1.slice(0, 16);
-
+  let date = DateFormatter(article.createdAt);
   return (
     <div className="container">
       <div className="flex-1">
@@ -27,7 +25,7 @@ const Article = ({ value, favouriteClick }) => {
 
           <div>
             <h4 className="none"> {article.author.username} </h4>
-            <p className="none"> {date1} </p>
+            <p className="none"> {date} </p>
           </div>
         </div>
         <div>
