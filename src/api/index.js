@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import {getToken} from "../utils/localStorage"
+import React, { useState } from 'react';
 
 const API = axios.create({ baseURL: 'https://api.realworld.io/api' });
 
@@ -38,5 +40,19 @@ export const followUser = (id) => API.post(`/profiles/${id}/follow`)
 export const unfollowUser = (id) => API.delete(`/profiles/${id}/follow`)
 export const getFollowedArticles = (offset) => API.get(`/articles/feed?limit=9&offset=${offset}`)
 
-
-
+export const apiWrapper = async (parameters, func) =>{
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState("");
+  try {
+    const value = await func(...parameters);
+    console.log(value.data)
+    setData(value.data)
+  } catch (error) {
+    console.error(error);
+    setLoading(true);  
+  }
+  finally{
+    // eslint-disable-next-line no-unsafe-finally
+    return [data, loading];
+  }
+}

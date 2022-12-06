@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import Articles from "../../components/Articles/articles";
 import {
   favouriteArticle,
@@ -6,6 +6,7 @@ import {
   unfavouriteArticle,
   filterByTag,
   getFollowedArticles,
+  // apiWrapper,
 } from "../../api/index";
 import PopularTags from "../../components/PopularTags/popularTags";
 import Paginat from "../../components/Pagination/Paginat";
@@ -18,22 +19,24 @@ const Home = () => {
   const [offset, setOffset] = useState(0);
   const { token } = useContext(Context);
 
-  const a = async () => {
+  const globalArticles = useCallback(async () => {
     const articles = await getArticles(9, offset);
     setArticles(articles.data.articles);
     setArticleCount(articles.data.articlesCount);
-  };
-  const b = async (tag) => {
+    // const [data, loading ]= await apiWrapper([9, offset], getArticles);
+    // console.log(data);
+  }, []);
+  const taggedArticles = useCallback(async (tag) => {
     const a = await filterByTag(tag, 9, offset);
     setArticles(a.data.articles);
     setArticleCount(articles.data.articlesCount);
-  };
+  }, []);
 
-  const c = async () => {
+  const yourFeedArticles = useCallback(async () => {
     const articles = await getFollowedArticles(offset);
     setArticles(articles.data.articles);
     setArticleCount(articles.data.articlesCount);
-  };
+  }, []);
 
   async function handleFavouriteClick(value, clicked) {
     if (clicked) {
@@ -42,15 +45,13 @@ const Home = () => {
       await favouriteArticle(value);
     }
 
-    tag ? b(tag) : a();
+    tag ? taggedArticles(tag) : globalArticles();
   }
 
   async function handleTagClick(value) {
-    const a = async () => {
-      const a = await filterByTag(value);
-      setArticles(a.data.articles);
-    };
-    a();
+    await filterByTag(value).then((filteredArt) =>
+      setArticles(filteredArt.data.articles)
+    );
     setTag(value);
   }
 
@@ -59,21 +60,21 @@ const Home = () => {
     if (value === 1) {
       setClicked(1);
       setOffset(1);
-      a();
-    } else if (value === 2) {
+      globalArticles();
+    } else {
       setClicked(2);
       setOffset(1);
-      c();
+      yourFeedArticles();
     }
   }
 
   function handlePaginationClick(e, page) {
     setOffset((page - 1) * 9);
-    clicked === 1 ? a() : c();
+    clicked === 1 ? globalArticles() : yourFeedArticles();
   }
 
   useEffect(() => {
-    a();
+    globalArticles();
   }, []);
   return (
     <div>
