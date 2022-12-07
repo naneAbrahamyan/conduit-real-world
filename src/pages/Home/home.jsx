@@ -6,7 +6,6 @@ import {
   unfavouriteArticle,
   filterByTag,
   getFollowedArticles,
-  // apiWrapper,
 } from "../../api/index";
 import PopularTags from "../../components/PopularTags/popularTags";
 import Paginat from "../../components/Pagination/Paginat";
@@ -23,6 +22,7 @@ const Home = () => {
     const articles = await getArticles(9, offset);
     setArticles(articles.data.articles);
     setArticleCount(articles.data.articlesCount);
+    // trigger([9,0]);
     // const [data, loading ]= await apiWrapper([9, offset], getArticles);
     // console.log(data);
   }, []);

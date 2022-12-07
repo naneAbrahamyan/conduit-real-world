@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import {getToken} from "../utils/localStorage"
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 const API = axios.create({ baseURL: 'https://api.realworld.io/api' });
 
@@ -55,4 +55,32 @@ export const apiWrapper = async (parameters, func) =>{
     // eslint-disable-next-line no-unsafe-finally
     return [data, loading];
   }
+}
+
+export const useApiWrapper = func => {
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  console.log('inside');
+  const trigger = useCallback(
+
+    async params => {
+      console.log('called')
+
+      try {
+        setLoading(true)
+        const response = await func(params)
+        setData(response.data)
+      } catch (error) {
+        setError(error)
+        setData('didnt work')
+      } finally {
+        console.log(data, 'data')
+        setLoading(false)
+        // eslint-disable-next-line no-unsafe-finally
+      }
+    },
+    [func],
+  )
+  return [trigger, data, loading, error]
 }

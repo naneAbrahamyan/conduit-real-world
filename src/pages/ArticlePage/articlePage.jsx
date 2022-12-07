@@ -4,7 +4,12 @@ import { getArticle, postComments } from "../../api";
 import "./articlePage.css";
 import { Link } from "react-router-dom";
 import { Chip } from "@mui/material";
-import { getComments, removeComment, removeArticle } from "../../api/index";
+import {
+  getComments,
+  removeComment,
+  removeArticle,
+  useApiWrapper,
+} from "../../api/index";
 import Comments from "../../components/Comments/comments";
 import { Context } from "../../context/context";
 import { useNavigate } from "react-router-dom";
@@ -14,13 +19,17 @@ const ArticlePage = () => {
   const [article, setArticle] = useState([]);
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
-
   const { userName } = useContext(Context);
-
   const { slug } = useParams();
+  // eslint-disable-next-line no-unused-vars
+  const [getArticles, data, loading, error] = useApiWrapper(getArticle);
   const a = async () => {
     const a = await getArticle(slug);
     setArticle(a.data.article);
+    console.log(getArticles);
+    await getArticles(slug);
+    // setArticle(data?.article);
+    console.log(data, "value");
   };
 
   const commentsFunc = async () => {
@@ -48,6 +57,7 @@ const ArticlePage = () => {
     commentsFunc();
   };
   useEffect(() => {
+    console.log(loading, "loadin");
     a();
     commentsFunc();
   }, []);
