@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useState, useContext } from "react";
+import { useState, useContext, useCallback, useEffect } from "react";
 import {
   favouriteArticle,
   getProfile,
@@ -9,7 +9,6 @@ import {
 } from "../../api";
 import { Link } from "react-router-dom";
 import Articles from "../../components/Articles/articles";
-import { useEffect } from "react";
 import { Context } from "../../context/context";
 import {
   getFavoritedArticles,
@@ -26,18 +25,18 @@ const Profile = ({ username }) => {
   const [button, setButton] = useState(1);
 
   const current = username || userName;
-  const getPerson = async (value) => {
+  const getPerson = useCallback(async (value) => {
     const articles = await getUserArticles(value);
     setArticles(articles.data.articles);
     const u = await getProfile(value);
     setUser(u.data.profile);
     setFollowing(u.data.profile.following);
-  };
+  }, []);
 
-  const getLiked = async (value) => {
+  const getLiked = useCallback(async (value) => {
     const articles = await getFavoritedArticles(value);
     setArticles(articles.data.articles);
-  };
+  }, []);
 
   const [clicked, setClciked] = useState(1);
   function handleButtonClick(value) {
