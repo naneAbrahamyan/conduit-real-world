@@ -1,4 +1,12 @@
 .popular-tags-box{
-    max-width: 200px;
+    max-width: 300px;
+    margin-left: 5em;
     background-color: rgb(145, 145, 145);
+}
+
+@media (min-width: 900px) {
+    .popular-tags-box{
+        width: 1000px;
+
+    }
 }

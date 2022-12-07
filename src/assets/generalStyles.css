@@ -73,6 +73,13 @@ input[type=submit]:hover {
 }
 .grow {
     flex-grow: 1;
+    max-width: 500px;
+}
+
+@media (min-width: 700px) {
+  .grow {
+      max-width: 1000px;
+  }
 }
 
 .button {
