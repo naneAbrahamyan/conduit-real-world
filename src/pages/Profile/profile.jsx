@@ -28,9 +28,9 @@ const Profile = ({ username }) => {
   const getPerson = useCallback(async (value) => {
     const articles = await getUserArticles(value);
     setArticles(articles.data.articles);
-    const u = await getProfile(value);
-    setUser(u.data.profile);
-    setFollowing(u.data.profile.following);
+    const profile = await getProfile(value);
+    setUser(profile.data.profile);
+    setFollowing(profile.data.profile.following);
   }, []);
 
   const getLiked = useCallback(async (value) => {
