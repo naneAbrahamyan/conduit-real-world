@@ -65,7 +65,7 @@ const ArticlePage = () => {
 
             <div className="article-page-avatar">
               <Link
-                to={`/user/${data?.author?.username}`}
+                to={`/user/${data?.article?.author?.username}`}
                 style={{ textDecoration: "none" }}
               >
                 {" "}

@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from "react";
+import PropTypes from "prop-types";
 import { useState, useContext } from "react";
 import {
   favouriteArticle,
@@ -18,22 +18,23 @@ import {
 } from "../../api/index";
 import "./profile.css";
 
-const Profile = (props) => {
+const Profile = ({ username }) => {
   const [articles, setArticles] = useState([]);
   let { userName } = useContext(Context);
   const [user, setUser] = useState([]);
   const [following, setFollowing] = useState("");
   const [button, setButton] = useState(1);
-  const username = props.username ? props.username : userName;
-  const a = async (value) => {
+
+  const current = username || userName;
+  const getPerson = async (value) => {
     const articles = await getUserArticles(value);
     setArticles(articles.data.articles);
-    const u = await getProfile(username);
+    const u = await getProfile(value);
     setUser(u.data.profile);
     setFollowing(u.data.profile.following);
   };
 
-  const b = async (value) => {
+  const getLiked = async (value) => {
     const articles = await getFavoritedArticles(value);
     setArticles(articles.data.articles);
   };
@@ -43,10 +44,10 @@ const Profile = (props) => {
     setButton(value);
     if (value === 1) {
       setClciked(true);
-      a(username);
+      getPerson(current);
     } else {
       setClciked(false);
-      b(username);
+      getLiked(current);
     }
   }
 
@@ -56,7 +57,7 @@ const Profile = (props) => {
     } else {
       await favouriteArticle(value);
     }
-    button === 1 ? a(username) : b(username);
+    button === 1 ? getPerson(current) : getLiked(current);
   }
 
   async function handleFollow() {
@@ -67,8 +68,9 @@ const Profile = (props) => {
     setUser(u.data.profile);
     setFollowing(u.data.profile.following);
   }
+  console.log(user);
   useEffect(() => {
-    a(username);
+    getPerson(current);
   }, []);
   return (
     <div>
@@ -80,10 +82,10 @@ const Profile = (props) => {
               alt="no img"
             />
           </div>
-          <h4 className="none"> {username} </h4>
+          <h4 className="none"> {current} </h4>
           <p className="none"> {user?.bio}</p>
           <div className="profile-top-button">
-            {props?.username && props?.username != userName ? (
+            {username && username != userName ? (
               <button className="profile-button" onClick={handleFollow}>
                 {" "}
                 {!following ? "Follow" : "Unfollow"} {username}
@@ -118,6 +120,10 @@ const Profile = (props) => {
       </div>
     </div>
   );
+};
+
+Profile.propTypes = {
+  username: PropTypes.string,
 };
 
 export default Profile;

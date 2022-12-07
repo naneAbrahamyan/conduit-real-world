@@ -24,8 +24,8 @@ const Home = () => {
     setArticleCount(articles.data.articlesCount);
   }, []);
   const taggedArticles = useCallback(async (tag) => {
-    const a = await filterByTag(tag, 9, offset);
-    setArticles(a.data.articles);
+    const filterdArticles = await filterByTag(tag, 9, offset);
+    setArticles(filterdArticles.data.articles);
     setArticleCount(articles.data.articlesCount);
   }, []);
 
