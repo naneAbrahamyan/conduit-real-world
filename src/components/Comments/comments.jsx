@@ -6,7 +6,7 @@ import { DateFormatter } from "../../utils/dataFormatter";
 const Comments = ({ value, username, removeComment }) => {
   const token = username;
   const get = token === value.author.username ? true : false;
-  let date = useMemo(() => DateFormatter(value.createdAt), [value.createdAt]);
+  const date = useMemo(() => DateFormatter(value.createdAt), [value.createdAt]);
   return (
     <div className="comment-box">
       {value.body}
@@ -39,7 +39,7 @@ const Comments = ({ value, username, removeComment }) => {
         </div>
         <div>
           <button
-            className={`${!get ? "hide" : ""}`}
+            className={`${!get ? "hide" : "button remove"}`}
             onClick={() => removeComment(value.id)}
           >
             {" "}

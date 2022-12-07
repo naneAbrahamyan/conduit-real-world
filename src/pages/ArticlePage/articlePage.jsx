@@ -13,38 +13,28 @@ import {
 import Comments from "../../components/Comments/comments";
 import { Context } from "../../context/context";
 import { useNavigate } from "react-router-dom";
+import { DateFormatter } from "../../utils/dataFormatter";
 
 const ArticlePage = () => {
+  const { slug } = useParams();
   const navigate = useNavigate();
-  const [article, setArticle] = useState([]);
-  const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const { userName } = useContext(Context);
-  const { slug } = useParams();
-  // eslint-disable-next-line no-unused-vars
-  const [getArticles, data, loading, error] = useApiWrapper(getArticle);
-  const a = async () => {
-    const a = await getArticle(slug);
-    setArticle(a.data.article);
-    console.log(getArticles);
+
+  const [getArticles, data] = useApiWrapper(getArticle);
+  const [allComements, value] = useApiWrapper(getComments);
+
+  const userArticle = async () => {
     await getArticles(slug);
-    // setArticle(data?.article);
-    console.log(data, "value");
   };
 
   const commentsFunc = async () => {
-    const com = await getComments(slug);
-    setComments(com.data.comments);
+    await allComements(slug);
   };
-
-  let date1 = new Date(article.createdAt) + " ";
-  date1 = date1.slice(0, 16);
-
   async function handleArticleRemoval() {
     await removeArticle(slug);
     navigate("/home");
   }
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     await postComments(slug, comment);
@@ -57,15 +47,14 @@ const ArticlePage = () => {
     commentsFunc();
   };
   useEffect(() => {
-    console.log(loading, "loadin");
-    a();
+    userArticle();
     commentsFunc();
   }, []);
   return (
     <div>
       <div className="article-page">
         <div className="article-title">
-          {article.title}
+          {data && data.article.title}
           <div className="flex-2" style={{ padding: "20px 0 0 0" }}>
             <div className="round-image">
               <img
@@ -76,18 +65,21 @@ const ArticlePage = () => {
 
             <div className="article-page-avatar">
               <Link
-                to={`/user/${article?.author?.username}`}
+                to={`/user/${data?.author?.username}`}
                 style={{ textDecoration: "none" }}
               >
                 {" "}
                 <h4 className="none" style={{ color: "white" }}>
                   {" "}
-                  {article?.author?.username}{" "}
+                  {data?.article?.author?.username}{" "}
                 </h4>{" "}
               </Link>
-              <p className="none"> {date1} </p>
+              <p className="none">
+                {" "}
+                {data && DateFormatter(data.article.createdAt)}{" "}
+              </p>
             </div>
-            {userName === article?.author?.username && (
+            {userName === data?.article?.author?.username && (
               <button
                 className="button-art remove"
                 onClick={handleArticleRemoval}
@@ -96,7 +88,7 @@ const ArticlePage = () => {
                 Remove Article{" "}
               </button>
             )}
-            {userName === article?.author?.username && (
+            {userName === data?.article?.author?.username && (
               <Link to={`/new-post/${slug}`} className="button-art remove">
                 {" "}
                 Edit Article{" "}
@@ -106,8 +98,8 @@ const ArticlePage = () => {
         </div>
       </div>
       <div>
-        <div style={{ margin: "10px" }}>{article.title}</div>
-        {article?.tagList?.map((value, index) => (
+        <div style={{ margin: "10px" }}>{data?.article.title}</div>
+        {data?.article?.tagList?.map((value, index) => (
           <Chip label={value} key={index} style={{ margin: "3px" }} />
         ))}
       </div>
@@ -154,15 +146,16 @@ const ArticlePage = () => {
             </form>
           </div>
 
-          {comments?.map((value, index) => (
-            <div className="comments margin" key={index}>
-              <Comments
-                value={value}
-                username={userName}
-                removeComment={handleButtonRemoval}
-              />
-            </div>
-          ))}
+          {value &&
+            value.comments?.map((value, index) => (
+              <div className="comments margin" key={index}>
+                <Comments
+                  value={value}
+                  username={userName}
+                  removeComment={handleButtonRemoval}
+                />
+              </div>
+            ))}
         </div>
       </div>
     </div>

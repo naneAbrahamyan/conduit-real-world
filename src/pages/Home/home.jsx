@@ -22,9 +22,6 @@ const Home = () => {
     const articles = await getArticles(9, offset);
     setArticles(articles.data.articles);
     setArticleCount(articles.data.articlesCount);
-    // trigger([9,0]);
-    // const [data, loading ]= await apiWrapper([9, offset], getArticles);
-    // console.log(data);
   }, []);
   const taggedArticles = useCallback(async (tag) => {
     const a = await filterByTag(tag, 9, offset);

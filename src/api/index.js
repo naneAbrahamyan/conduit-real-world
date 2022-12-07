@@ -40,32 +40,14 @@ export const followUser = (id) => API.post(`/profiles/${id}/follow`)
 export const unfollowUser = (id) => API.delete(`/profiles/${id}/follow`)
 export const getFollowedArticles = (offset) => API.get(`/articles/feed?limit=9&offset=${offset}`)
 
-export const apiWrapper = async (parameters, func) =>{
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState("");
-  try {
-    const value = await func(...parameters);
-    console.log(value.data)
-    setData(value.data)
-  } catch (error) {
-    console.error(error);
-    setLoading(true);  
-  }
-  finally{
-    // eslint-disable-next-line no-unsafe-finally
-    return [data, loading];
-  }
-}
 
 export const useApiWrapper = func => {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  console.log('inside');
   const trigger = useCallback(
 
     async params => {
-      console.log('called')
 
       try {
         setLoading(true)
@@ -75,9 +57,7 @@ export const useApiWrapper = func => {
         setError(error)
         setData('didnt work')
       } finally {
-        console.log(data, 'data')
         setLoading(false)
-        // eslint-disable-next-line no-unsafe-finally
       }
     },
     [func],
