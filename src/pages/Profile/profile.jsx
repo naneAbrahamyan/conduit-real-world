@@ -67,7 +67,6 @@ const Profile = ({ username }) => {
     setUser(u.data.profile);
     setFollowing(u.data.profile.following);
   }
-  console.log(user);
   useEffect(() => {
     getPerson(current);
   }, []);
